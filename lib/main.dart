@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_and_signup_with_sqflite/app/presenter/ui/login/login_page..dart';
 import 'package:toast/toast.dart';
-
-import 'app/presenter/ui/login/login_page..dart';
 
 void main() => runApp(const MyApp());
 
