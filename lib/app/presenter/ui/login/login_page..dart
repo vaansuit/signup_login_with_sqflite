@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:login_and_signup_with_sqflite/app/presenter/ui/home/home_page.dart';
+import 'package:login_and_signup_with_sqflite/app/presenter/ui/widgets/custom_text_form_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/entities/user_model.dart';
 import '../../../infra/datasource/local/database_helper.dart';
 import '../../logic/alert_dialog.dart';
+import '../sign-up/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -66,7 +68,55 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(
+        title: const Text(''),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 100),
+                CustomTextFormField(
+                  controller: emailController,
+                  icon: Icons.person,
+                  hintName: 'Email',
+                ),
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  controller: passController,
+                  icon: Icons.lock,
+                  hintName: 'Senha',
+                  isObscureText: true,
+                ),
+                ElevatedButton(
+                  onPressed: login,
+                  child: const Text('Entrar'),
+                ),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Não tem uma conta? '),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SignUpPage(),
+                          ),
+                        );
+                      },
+                      child: const Text('Registre-se'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
