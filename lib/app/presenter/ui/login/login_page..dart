@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   //controllers para pegar o email e a senha
   final emailController = TextEditingController();
-  final passController = TextEditingController();
+  final passwordController = TextEditingController();
   //variável da base de dados
   var dbHelper;
 
@@ -30,12 +30,12 @@ class _LoginPageState extends State<LoginPage> {
   login() async {
     FocusManager.instance.primaryFocus?.unfocus;
     String email = emailController.text;
-    String pass = passController.text;
+    String pass = passwordController.text;
 
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      await dbHelper.getLoginUser(email, pass).than((userData) {
+      await dbHelper.getLoginUser(email, pass).then((userData) {
         if (userData != null) {
           setSP(userData).whenComplete(() {
             Navigator.pushAndRemoveUntil(
@@ -68,9 +68,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -85,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextFormField(
-                  controller: passController,
+                  controller: passwordController,
                   icon: Icons.lock,
                   hintName: 'Senha',
                   isObscureText: true,
